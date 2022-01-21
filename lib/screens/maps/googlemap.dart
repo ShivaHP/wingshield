@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wingshield_assignment/core/utils/helpermethods.dart';
 
 class GoogleMapFlutter extends StatefulWidget {
   final double latitude;
@@ -31,6 +32,12 @@ class _GoogleMapState extends State<GoogleMapFlutter> {
     userposition=LatLng(widget.latitude,widget.longitude);
   }
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.future.then((value) => value.dispose());
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -45,18 +52,26 @@ class _GoogleMapState extends State<GoogleMapFlutter> {
               markers={};
               markers.add(Marker(markerId: MarkerId(latlng.toString()),position: latlng,));
               userposition=latlng;
+              setState(() {
+                
+              });
             },
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: ElevatedButton(onPressed: (){
-            }, child:const Text("Save Position")),
+            child: Container(
+              margin:const EdgeInsets.only(bottom: 20),
+              child: ElevatedButton(onPressed: (){
+                saveposition();
+              }, child:const Text("Save Position")),
+            ),
           )
         ],
       ),
     );
   }
   saveposition(){
+    HelperMethods.showsnackbar(context: context,message: "Your Position Saved Successfully");
     Navigator.pop(context,userposition);
     
   }

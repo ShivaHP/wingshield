@@ -1,5 +1,6 @@
-import 'dart:html';
 
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wingshield_assignment/core/firebaseinstances/firestorecollections.dart';
@@ -40,12 +41,22 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.blue.shade100,
-              Colors.blue.shade900
-            ]
+              Colors.purple.shade700,
+              Colors.yellow.shade600
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight
           )
         ),
-        child:const Text("Welcome to Wingshield",style: TextStyle(color: Colors.white),),
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children:const [
+            Icon(CupertinoIcons.ant_circle_fill,color: Colors.white,size: 100),
+           
+            Text("Social Finders",style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.w900,fontStyle: FontStyle.italic),),
+
+          ],
+        ),
       ),
     );
   }
@@ -56,6 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Position position=await Geolocator.getCurrentPosition();
       usercollectionreference.where("id",isEqualTo: firebaseAuth.currentUser?.uid).get().then((value){
         if(value.docs.isNotEmpty){
+          
           value.docs[0].reference.update({
             "location":"${position.latitude},${position.longitude}"
           });
