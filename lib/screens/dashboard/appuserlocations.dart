@@ -84,7 +84,7 @@ class _AppUserLocationsState extends State<AppUserLocations> {
        user=UserModel.fromJson(jsonDecode(currentuser));
     }
     List<String> location=user.location.split(",");
-    cameraPosition = CameraPosition(target: LatLng(location[0].todouble(), location[1].todouble()),zoom: 15);
+    cameraPosition = CameraPosition(target: LatLng(location[0].todouble(), location[1].todouble()),zoom: 11);
     futurecallback();
   }
   //in case map is not loaded quickly 

@@ -27,6 +27,8 @@ class HelperMethods {
             android: AndroidNotificationDetails(
               notificationChannel.id,
               notificationChannel.name,
+              priority: Priority.high,
+            importance: Importance.high,
               styleInformation: BigTextStyleInformation(message,summaryText: "Notifications",contentTitle: title)
             ),
             iOS:const IOSNotificationDetails()));

@@ -133,6 +133,7 @@ class _SignUpState extends State<SignUp> {
   createuser()async{
    //if user validated
     if(formkey.currentState!.validate()){
+      
       HelperMethods.showsnackbar(context: context,message: "Creating your account");
       setState(() {
         isloading=true;
@@ -171,6 +172,9 @@ class _SignUpState extends State<SignUp> {
         isloading=false;
       });
     });
+    }
+    else if(locationcontroller.text.isEmpty){
+      HelperMethods.showsnackbar(context: context,message: "Select your location",color: Colors.cyan);
     }
    
   }
