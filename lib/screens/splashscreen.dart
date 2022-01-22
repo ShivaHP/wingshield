@@ -1,5 +1,8 @@
 
 
+import 'dart:async';
+import 'dart:isolate';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,14 +21,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+     ReceivePort receivePort=ReceivePort();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+ 
+  
     Future.delayed(const Duration(seconds: 2),(){
       bool isloggedin=SharedPref.preferences?.getBool("isLoggedIn")??false;
       if(isloggedin){
-        updateuserlocation();
+       updateuserlocation();
         Navigator.pushNamed(context, Home.route);
       }
       else{
@@ -35,6 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -61,29 +68,30 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  updateuserlocation()async{
-    LocationPermission permissionStatus=await Geolocator.checkPermission();
+  
+
+ }
+
+
+
+updateuserlocation()async{
+    Timer.periodic(const Duration(seconds: 5),(value)async{
+      //checking the permission
+       LocationPermission permissionStatus=await Geolocator.checkPermission();
+       print("permission checked");
+
+       //update the location if the permission is always or once
     if(permissionStatus==LocationPermission.always||permissionStatus==LocationPermission.whileInUse){
       Position position=await Geolocator.getCurrentPosition();
       usercollectionreference.where("id",isEqualTo: firebaseAuth.currentUser?.uid).get().then((value){
+        print("updating");
         if(value.docs.isNotEmpty){
-          
           value.docs[0].reference.update({
             "location":"${position.latitude},${position.longitude}"
           });
         }
       });
     }
-    else {
-      permissionStatus=await Geolocator.requestPermission();
-      if(permissionStatus==LocationPermission.denied){
-        HelperMethods.showsnackbar(context: context,message: "Permission Denied",color: Colors.red);
-      }
-      else{
-        updateuserlocation();
-      }
-
-    }
-
-  }
+  });
+   
 }

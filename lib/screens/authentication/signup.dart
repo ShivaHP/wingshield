@@ -97,7 +97,7 @@ class _SignUpState extends State<SignUp> {
                    
                 InkWell(
                   onTap: (){
-                    getuserlocation();
+                    getuserlocation(launchmap: true);
                   },
                   child: Container(
                     margin:const EdgeInsets.symmetric(vertical: 20),
@@ -116,7 +116,8 @@ class _SignUpState extends State<SignUp> {
                     primary: Colors.blue.shade900,
                     padding: EdgeInsets.symmetric(horizontal:isloading? 60:40,vertical: 10)
                   ),onPressed: (){
-                    createuser();
+                   
+                   createuser();
                   }, child:isloading?const SizedBox(width: 20,height: 20,child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),),): const Text("Create Account")),
                 ),
 
@@ -179,8 +180,9 @@ class _SignUpState extends State<SignUp> {
    
   }
 
-  getuserlocation({bool launchmap=true})async{
+  getuserlocation({bool launchmap=false})async{
     //checking permission
+
     LocationPermission permissionStatus=await Geolocator.checkPermission();
 
     if(permissionStatus ==LocationPermission.always||permissionStatus==LocationPermission.whileInUse){
@@ -188,6 +190,7 @@ class _SignUpState extends State<SignUp> {
       Position position=await Geolocator.getCurrentPosition();
       locationcontroller.text="${position.latitude},${position.longitude}";
       if(launchmap){
+        FocusScope.of(context).unfocus();
           Navigator.pushNamed(context,GoogleMapFlutter.route,arguments:{
         "latitude":position.latitude,
         "longitude":position.longitude
@@ -211,7 +214,7 @@ class _SignUpState extends State<SignUp> {
         HelperMethods.showsnackbar(context: context,message: "Permission Denied",color: Colors.red);
       }
       else{
-        getuserlocation();
+        getuserlocation(launchmap: true);
       }
     }
 

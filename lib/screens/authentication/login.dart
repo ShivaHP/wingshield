@@ -14,6 +14,7 @@ import 'package:wingshield_assignment/core/utils/helpermethods.dart';
 import 'package:wingshield_assignment/core/utils/sharedpref.dart';
 import 'package:wingshield_assignment/screens/authentication/signup.dart';
 import 'package:wingshield_assignment/screens/dashboard/home.dart';
+import 'package:wingshield_assignment/screens/splashscreen.dart';
 
 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -140,6 +141,9 @@ class _LoginState extends State<Login> {
         .get()
         .then((value) async {
       if (value.docs.isEmpty) {
+        setState(() {
+          isloading=false;
+        });
         Navigator.pushNamed(context, SignUp.route);
       } else {
         //storing user and updating our currentuser provider

@@ -30,6 +30,7 @@ class _GoogleMapState extends State<GoogleMapFlutter> {
       zoom: 20
     );
     userposition=LatLng(widget.latitude,widget.longitude);
+    markers.add(Marker(markerId: MarkerId(userposition.hashCode.toString()),position: userposition));
   }
   @override
   void dispose() {
