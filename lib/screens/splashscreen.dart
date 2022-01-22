@@ -79,7 +79,6 @@ updateuserlocation()async{
       //checking the permission
        LocationPermission permissionStatus=await Geolocator.checkPermission();
     
-
        //update the location if the permission is always or once
     if(permissionStatus==LocationPermission.always||permissionStatus==LocationPermission.whileInUse){
       Position position=await Geolocator.getCurrentPosition();

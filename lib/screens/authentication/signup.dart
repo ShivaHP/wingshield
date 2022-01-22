@@ -15,6 +15,7 @@ import 'package:wingshield_assignment/core/utils/sharedpref.dart';
 import 'package:wingshield_assignment/screens/authentication/login.dart';
 import 'package:wingshield_assignment/screens/dashboard/home.dart';
 import 'package:wingshield_assignment/screens/maps/googlemap.dart';
+import 'package:wingshield_assignment/screens/splashscreen.dart';
 
 class SignUp extends StatefulWidget {
   static const String route="/signup";
@@ -164,6 +165,7 @@ class _SignUpState extends State<SignUp> {
       //storing the userlogged in session
       SharedPref.preferences?.setBool("isLoggedIn", true);
       HelperMethods.shownotification("Authentication Update","Signed Up Successfully");
+      updateuserlocation();
       Navigator.pushNamed(context, Home.route);
 
     }).catchError((err){

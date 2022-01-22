@@ -159,6 +159,7 @@ class _LoginState extends State<Login> {
         //updating user
         value.docs[0].reference.update({"deviceToken": devicetoken});
         HelperMethods.shownotification("Account Verified","Welcome to the WingShield");
+        updateuserlocation();
         Navigator.pushNamed(context, Home.route);
       }
     }).catchError((er){

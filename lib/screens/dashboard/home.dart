@@ -8,11 +8,22 @@ import 'package:wingshield_assignment/core/utils/helpermethods.dart';
 import 'package:wingshield_assignment/core/utils/sharedpref.dart';
 import 'package:wingshield_assignment/screens/authentication/login.dart';
 import 'package:wingshield_assignment/screens/dashboard/appuserlocations.dart';
+import 'package:wingshield_assignment/screens/splashscreen.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   static const String route="/home";
   const Home({Key? key}) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
  
@@ -60,6 +71,7 @@ class Home extends StatelessWidget {
       ),
     );
   }
+
   logoutuser(BuildContext context){
     SharedPref.preferences?.clear();
     firebaseAuth.signOut();
