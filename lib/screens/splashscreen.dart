@@ -92,6 +92,17 @@ updateuserlocation()async{
         }
       });
     }
+
+    else {
+      //requesting in case denied permission
+      LocationPermission permission=await Geolocator.requestPermission();
+      if(permission==LocationPermission.denied){
+
+      }
+      else{
+        updateuserlocation();
+      }
+    }
   });
    
 }
