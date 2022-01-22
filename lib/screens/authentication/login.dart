@@ -9,6 +9,7 @@ import 'package:provider/src/provider.dart';
 
 import 'package:wingshield_assignment/core/firebaseinstances/firestorecollections.dart';
 import 'package:wingshield_assignment/core/models/usermodel.dart';
+import 'package:wingshield_assignment/core/provider/repository.dart';
 import 'package:wingshield_assignment/core/provider/userprovider.dart';
 import 'package:wingshield_assignment/core/utils/helpermethods.dart';
 import 'package:wingshield_assignment/core/utils/sharedpref.dart';
@@ -159,7 +160,7 @@ class _LoginState extends State<Login> {
         //updating user
         value.docs[0].reference.update({"deviceToken": devicetoken});
         HelperMethods.shownotification("Account Verified","Welcome to the WingShield");
-        updateuserlocation();
+       AppRepository.updateuserlocation();
         Navigator.pushNamed(context, Home.route);
       }
     }).catchError((er){

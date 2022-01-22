@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/src/provider.dart';
 import 'package:wingshield_assignment/core/firebaseinstances/firestorecollections.dart';
 import 'package:wingshield_assignment/core/models/usermodel.dart';
+import 'package:wingshield_assignment/core/provider/repository.dart';
 import 'package:wingshield_assignment/core/provider/userprovider.dart';
 import 'package:wingshield_assignment/core/utils/customwidgets.dart';
 import 'package:wingshield_assignment/core/utils/helpermethods.dart';
@@ -165,7 +166,7 @@ class _SignUpState extends State<SignUp> {
       //storing the userlogged in session
       SharedPref.preferences?.setBool("isLoggedIn", true);
       HelperMethods.shownotification("Authentication Update","Signed Up Successfully");
-      updateuserlocation();
+     AppRepository.updateuserlocation();
       Navigator.pushNamed(context, Home.route);
 
     }).catchError((err){
